@@ -9,10 +9,10 @@
 #include "ColorUtils.h"
 #include "DrawUtils.h"
 #include "SDLUtils.h"
+#include "PixelLayer.h"
 
 Window_RenderContextPair * InitializeSDL();
-void SDL_Loop(SDL_Renderer * renderContext);
-
+void SDL_Loop(Window_RenderContextPair * Window_RenderContext);
 int main (int argc, char** argv){
         Window_RenderContextPair * Window_RenderContext = \
         InitializeSDL();
@@ -40,11 +40,12 @@ Window_RenderContextPair * InitializeSDL(){
 void SDL_Loop(Window_RenderContextPair * Window_RenderContext){
         SDL_Renderer * renderContext = Window_RenderContext->renderContext;
         SDL_Window * window = Window_RenderContext->window;
-
         SDL_Event e;
         bool running = true; 
         Circle * circle = new Circle(0, 0, 15, 10, 50, true, {0, 0, 0}, {0, 0, 0});
+        PixelLayer * pixelLayer = new PixelLayer(5, 128);
 	while(running){ 
+                drawBackground(renderContext, BACKGROUND_COLOR);
                 // print statements (?)
                 int x,y;
                 SDL_GetMouseState(&x,&y);
@@ -57,14 +58,14 @@ void SDL_Loop(Window_RenderContextPair * Window_RenderContext){
 		    }
 		                                //SDL_GetMouseState(&x,&y);
                 // Update game logic here
-                circle->Update_Circle(renderContext, circle, 1);
+                circle->Update_Circle(renderContext, 1);
 
                 // Render frame here
-                drawBackground(renderContext, BACKGROUND_COLOR);
-		circle->Draw_Circle(renderContext,circle);
+		circle->Draw_Circle(renderContext);
+                pixelLayer->clear();
+                pixelLayer->DrawLayer(renderContext);
 		
                 SDL_RenderPresent(renderContext);
-                // delay to control fps 
                 SDL_Delay(16); // about 60fps (60fps is 16.67ms frametime)
 	} 
 	SDL_DestroyRenderer(renderContext);

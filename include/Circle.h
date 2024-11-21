@@ -15,16 +15,12 @@ class Circle{
 
         // class method prototypes:
         // constructor
-        public: 
         Circle(float x,  float y, float vx, float vy, int r, bool isDynamic, SDL_Color color, 
                SDL_Color outlineColor);
 
-        void Draw_Circle(SDL_Renderer * renderer, Circle * c);
-        void Update_Circle(SDL_Renderer * renderer, Circle * c, int dt);
+        void Draw_Circle(SDL_Renderer * renderer);
+        void Update_Circle(SDL_Renderer * renderer, int dt);
 
-        private:
-        void Internal_Draw_Circle(SDL_Renderer * renderer, int cX, int cY, int r, SDL_Color color, 
-                                  SDL_Color outlineColor);
 };
 
 

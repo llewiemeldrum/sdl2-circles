@@ -3,10 +3,10 @@
 
 #include <SDL2/SDL.h>
 
-typedef struct Window_RenderContextPair{
+typedef struct {
         SDL_Window* window;
         SDL_Renderer * renderContext;
-};
+} Window_RenderContextPair;
 
 
 #endif // SDLUTILS_H
